@@ -1,6 +1,6 @@
 <?php
 
-namespace Pinkong\YunXin;
+namespace Woshuo\YunXin;
 
 use Illuminate\Support\ServiceProvider;
 

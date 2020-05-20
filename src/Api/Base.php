@@ -1,5 +1,5 @@
 <?php
-namespace Pinkong\YunXin\Api;
+namespace Woshuo\YunXin\Api;
 
 
 use GuzzleHttp\Client;

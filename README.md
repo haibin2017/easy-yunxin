@@ -31,6 +31,8 @@ as optional, you can use facade:
 
 ```
 
+Laravel 5.5+ 会自动注册服务提供者可过滤
+
 If you are using Lumen, append the following code to `bootstrap/app.php`:
 
 ```php

@@ -5,7 +5,7 @@
  * Time: 上午11:16
  */
 
-namespace Pinkong\YunXin\Api;
+namespace Woshuo\YunXin\Api;
 
 
 use function GuzzleHttp\Psr7\str;

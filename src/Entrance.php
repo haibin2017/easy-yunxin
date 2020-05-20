@@ -1,5 +1,5 @@
 <?php
-namespace Pinkong\YunXin;
+namespace Woshuo\YunXin;
 
 
 use Pinkong\YunXin\Api\Chat;

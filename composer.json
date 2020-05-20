@@ -1,5 +1,5 @@
 {
-    "name": "pinkong/neteasy-yunxin",
+    "name": "woshuo/easy-yunxin",
     "description": "网易云信服务端sdk for laravel/lumen",
     "authors": [
         {
@@ -13,7 +13,14 @@
     },
     "autoload": {
         "psr-4": {
-            "Pinkong\\YunXin\\": "src/"
+            "Woshuo\\YunXin\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Woshuo\\YunXin\\YunXinServiceProvider"
+            ]
         }
     }
 }

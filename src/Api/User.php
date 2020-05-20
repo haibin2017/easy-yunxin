@@ -5,7 +5,7 @@
  * Time: 上午11:12
  */
 
-namespace Pinkong\YunXin\Api;
+namespace Woshuo\YunXin\Api;
 
 
 use YunXinHelper\Exception\YunXinArgExcetption;

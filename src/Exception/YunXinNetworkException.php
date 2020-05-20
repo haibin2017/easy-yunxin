@@ -5,7 +5,7 @@
  * Time: 上午10:24
  */
 
-namespace Pinkong\YunXin\Exception;
+namespace Woshuo\YunXin\Exception;
 
 
 class YunXinNetworkException extends \Exception
