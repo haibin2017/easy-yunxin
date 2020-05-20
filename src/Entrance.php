@@ -2,9 +2,9 @@
 namespace Woshuo\YunXin;
 
 
-use Pinkong\YunXin\Api\Chat;
-use Pinkong\YunXin\Api\ChatRoom;
-use Pinkong\YunXin\Api\User;
+use Woshuo\YunXin\Api\Chat;
+use Woshuo\YunXin\Api\ChatRoom;
+use Woshuo\YunXin\Api\User;
 
 /**
  * 入口类

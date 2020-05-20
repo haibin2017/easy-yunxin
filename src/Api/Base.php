@@ -3,9 +3,9 @@ namespace Woshuo\YunXin\Api;
 
 
 use GuzzleHttp\Client;
-use Pinkong\YunXin\Exception\YunXinBusinessException;
-use Pinkong\YunXin\Exception\YunXinInnerException;
-use Pinkong\YunXin\Exception\YunXinNetworkException;
+use Woshuo\YunXin\Exception\YunXinBusinessException;
+use Woshuo\YunXin\Exception\YunXinInnerException;
+use Woshuo\YunXin\Exception\YunXinNetworkException;
 
 /**
  * User: salamander
