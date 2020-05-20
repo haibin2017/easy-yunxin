@@ -8,7 +8,7 @@
 Require this package with composer by using the following command:
 
 ```
-$ composer require pinkong/neteasy-yunxin
+$ composer require haibin2017/easy-yunxin
 ```
 
 Then, add the service provider:
@@ -18,7 +18,7 @@ If you are using Laravel, add the service provider to the providers array in `co
 ```php
 [
     'providers' => [
-        Pinkong\YunXin\YunXinServiceProvider::class,
+        Woshuo\YunXin\YunXinServiceProvider::class,
     ],
 ]
 ```
@@ -26,7 +26,7 @@ If you are using Laravel, add the service provider to the providers array in `co
 as optional, you can use facade:
 ```php
     'aliases' => [
-        'YunXinHelper' => Pinkong\YunXin\YunXinHelper::class,
+        'YunXinHelper' => Woshuo\YunXin\YunXinHelper::class,
     ],
 
 ```
@@ -36,7 +36,7 @@ Laravel 5.5+ 会自动注册服务提供者可过滤
 If you are using Lumen, append the following code to `bootstrap/app.php`:
 
 ```php
-$app->register(Pinkong\YunXin\YunXinServiceProvider::class);
+$app->register(Woshuo\YunXin\YunXinServiceProvider::class);
 ```
 
 
@@ -45,7 +45,7 @@ $app->register(Pinkong\YunXin\YunXinServiceProvider::class);
 The defaults are set in config/yunxin.php. Copy this file to your own config directory to modify the values. You can publish the config using this command:
 
 ```php
-php artisan vendor:publish --provider="Pinkong\YunXin\YunXinServiceProvider"
+php artisan vendor:publish --provider="Woshuo\YunXin\YunXinServiceProvider"
 
 ```
 
