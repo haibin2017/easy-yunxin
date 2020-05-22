@@ -25,11 +25,5 @@ class YunXinServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('YunXinHelper', function () {
-            $appKey = config('yunxin.app_key');
-            $appSecret = config('yunxin.app_secret');
-            return new Entrance($appKey, $appSecret);
-        });
     }
-
 }

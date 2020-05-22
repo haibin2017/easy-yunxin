@@ -287,7 +287,6 @@ class User extends Base
     }
 
     /**
-     * /**
      * 设置桌面端在线时，移动端是否需要推送，客户端登录后才可以设置
      * @param $account 云信账号
      * @param $donnopOpen 桌面端在线时，移动端是否不推送：
@@ -299,7 +298,7 @@ class User extends Base
      * @throws \Woshuo\YunXin\Exception\YunXinInnerException
      * @throws \Woshuo\YunXin\Exception\YunXinNetworkException
      */
-    public function setDonnop($account, $donnopOpen)
+    public function setDonNop($account, $donnopOpen)
     {
         if (empty($account)) {
             throw new YunXinArgExcetption('用户账号不能为空！');

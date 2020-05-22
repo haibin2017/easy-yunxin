@@ -23,14 +23,6 @@ If you are using Laravel, add the service provider to the providers array in `co
 ]
 ```
 
-as optional, you can use facade:
-```php
-    'aliases' => [
-        'YunXinHelper' => Woshuo\YunXin\YunXinHelper::class,
-    ],
-
-```
-
 Laravel 5.5+ 会自动注册服务提供者可过滤
 
 If you are using Lumen, append the following code to `bootstrap/app.php`:
@@ -56,47 +48,58 @@ $app->configure('yunxin');
 ```
 
 ## Usage
+### 实例化
+```
+use Woshuo\YunXin\Entrance;
+
+$appKey = config('yunxin.app_key');
+$appSecret = config('yunxin.app_secret');
+$helper = new Entrance($appKey, $appSecret);
+$user = $helper->user();
+$chat = $helper->chat();
+```
+
 ### 用户
 ```
 # 创建用户
-YunXinHelper::user()->create($accid, $name, $icon);
+$user->create($accid, $name, $icon);
 
 
 # 用户基本信息更新
-YunXinHelper::user()->update($accid, $token);
+$user->update($accid, $token);
 
 
 # 封禁用户
-YunXinHelper::user()->block($accid);
+$user->block($accid);
 
 
 # 解禁用户
-YunXinHelper::user()->unblock($accid);
+$user->unblock($accid);
 
 
 # 更新用户名片
-YunXinHelper::user()->updateUserInfo($accid, $name, $icon);
+$user->updateUserInfo($accid, $name, $icon);
 
 
 # 批量获取用户名片
-YunXinHelper::user()->getUserInfos($accids);
+$user->getUserInfos($accids);
 ```
 
 ### 消息功能
 ```
 # 文本消息
-YunXinHelper::chat()->sendTextMsg($accidFrom, $to, $open, $text);
+$chat->sendTextMsg($accidFrom, $to, $open, $text);
 
 # 图片消息
-YunXinHelper::chat()->sendPictureMsg($accidFrom, $to, $open,
+$chat->sendPictureMsg($accidFrom, $to, $open,
         $picName, $picMD5, $picUrl, $picExt, $picWidth, $picHeight, $picSize);
 
 # 批量文本消息
-YunXinHelper::chat()->sendTextBatchMsg($accidFrom, $accidsTo, $text);
+$chat->sendTextBatchMsg($accidFrom, $accidsTo, $text);
 
 
 # 发送自定义系统通知
-YunXinHelper::chat()->sendAttachMsg($from, CHAT::CHAT_ONT_TO_ONE, $to, $attach);
+$chat->sendAttachMsg($from, CHAT::CHAT_ONT_TO_ONE, $to, $attach);
 ```
 
 ## License
