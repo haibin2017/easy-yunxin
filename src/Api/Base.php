@@ -1,4 +1,5 @@
 <?php
+
 namespace Woshuo\YunXin\Api;
 
 
@@ -12,7 +13,6 @@ use Woshuo\YunXin\Exception\YunXinNetworkException;
  * Date: 18-12-12
  * Time: 上午9:27
  */
-
 class Base
 {
     private $baseUrl = 'https://api.netease.im/nimserver/';
@@ -47,8 +47,36 @@ class Base
     const BUSINESS_UNPACK_ERROR_CODE = 998; // 解包错误
     const BUSINESS_PACK_ERROR_CODE = 999; // 打包错误
 
-    const ACCID_LEGAL_LENGTH = 32;
+    const CODE_MESSAGES = [
+        self::BUSINESS_CLIENT_BAD_VERSION_CODE => '客户端版本不对，需升级sdk',
+        self::BUSINESS_FORBIDDEN_CODE => '被封禁',
+        self::BUSINESS_USERNAME_OR_PASSWD_ERROR_CODE => '用户名或密码错误',
+        self::BUSINESS_IP_LIMIT_CODE => 'IP限制',
+        self::BUSINESS_NOT_PERMITTED_CODE => '非法操作或没有权限',
+        self::BUSINESS_NOT_EXIST_CODE => '客户端版本不对，需升级sdk',
+        self::BUSINESS_CLIENT_BAD_VERSION_CODE => '对象不存在',
+        self::BUSINESS_ARG_TOO_LONG_CODE => '参数长度过长',
+        self::BUSINESS_READ_ONLY_CODE => '对象只读',
+        self::BUSINESS_CLIENT_TIMEOUT_CODE => '客户端请求超时',
+        self::BUSINESS_SMS_VERIFY_FAILED_CODE => '验证失败(短信服务)',
+        self::BUSINESS_ARG_NOT_CORRECT_CODE => '参数错误',
+        self::BUSINESS_CLIENT_NETWORK_ERROR_CODE => '客户端网络问题',
+        self::BUSINESS_RATE_CONTROL_CODE => '频率控制',
+        self::BUSINESS_DUPLICATE_OPERATION_CODE => '重复操作',
+        self::BUSINESS_CHANNEL_NOT_AVAILABLE_CODE => '通道不可用(短信服务)',
+        self::BUSINESS_NUM_EXCEED_LIMIT_CODE => '数量超过上限',
+        self::BUSINESS_ACCOUNT_BANNED_CODE => '账号被禁用',
+        self::BUSINESS_ACCOUNT_CHAT_NOT_PERMITTED_CODE => '帐号被禁言',
+        self::BUSINESS_HTTP_REQUEST_DUPLICATE_CODE => 'HTTP重复请求',
+        self::BUSINESS_SERVER_INNER_ERROR_CODE => '服务器内部错误',
+        self::BUSINESS_SERVER_TOO_BUSY_CODE => '服务器繁忙',
+        self::BUSINESS_BAD_PROTOCOL_CODE => '无效协议',
+        self::BUSINESS_SERVICE_NOT_AVAILABLE_CODE => '服务不可用',
+        self::BUSINESS_UNPACK_ERROR_CODE => '解包错误',
+        self::BUSINESS_PACK_ERROR_CODE => '打包错误',
+    ];
 
+    const ACCID_LEGAL_LENGTH = 32;
 
 
     const CHAT_TYPE_TEXT = 0;
@@ -133,7 +161,8 @@ class Base
      * 设置超时时间
      * @param $timeout
      */
-    public function setTimeout($timeout) {
+    public function setTimeout($timeout)
+    {
         $this->timeout = $timeout;
     }
 
@@ -147,14 +176,15 @@ class Base
      * @throws YunXinNetworkException
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    protected function sendRequest($uri, array $data) {
+    protected function sendRequest($uri, array $data)
+    {
         $this->checkSumBuilder();
 
         $client = new Client([
             // Base URI is used with relative requests
             'base_uri' => $this->baseUrl,
             // You can set any number of default request options.
-            'timeout'  => $this->timeout,
+            'timeout' => $this->timeout,
         ]);
         $response = $client->request('POST', $uri, [
             'headers' => [
@@ -175,13 +205,19 @@ class Base
         if ($jsonRes && is_array($jsonRes) && $jsonRes['code'] == self::BUSINESS_SUCCESS_CODE) {
             return $jsonRes;
         } elseif ($jsonRes && is_array($jsonRes)) {
-            throw new YunXinBusinessException($jsonRes['desc'], $jsonRes['code']);
+            $message = $jsonRes['desc'];
+            $code = $jsonRes['code'];
+            if (array_key_exists($code, self::CODE_MESSAGES)) {
+                $message = self::CODE_MESSAGES[$code] . ',详情原因：' . $message;
+            }
+            throw new YunXinBusinessException($message, $code);
         } else {
             throw new YunXinInnerException('NetEase inner error: ' . $body);
         }
     }
 
-    protected function bool2String($var) {
+    protected function bool2String($var)
+    {
         return $var ? 'true' : 'false';
     }
 }
