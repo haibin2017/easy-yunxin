@@ -7,9 +7,7 @@
 
 namespace Woshuo\YunXin\Api;
 
-
-use function GuzzleHttp\Psr7\str;
-use YunXinHelper\Exception\YunXinArgExcetption;
+use Woshuo\YunXin\Exception\YunXinArgExcetption;
 
 class ChatRoom extends Base
 {
@@ -58,13 +56,15 @@ class ChatRoom extends Base
      * @param string $broadcasturl
      * @param string $ext
      * @param int $queuelevel
-     * @return array
+     * @return mixed
      * @throws YunXinArgExcetption
      * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \YunXinHelper\Exception\YunXinBusinessException
-     * @throws \YunXinHelper\Exception\YunXinNetworkException
+     * @throws \Woshuo\YunXin\Exception\YunXinBusinessException
+     * @throws \Woshuo\YunXin\Exception\YunXinInnerException
+     * @throws \Woshuo\YunXin\Exception\YunXinNetworkException
      */
-    public function create($creator, $name, $announcement = '', $broadcasturl = '', $ext = '', $queuelevel = 0) {
+    public function create($creator, $name, $announcement = '', $broadcasturl = '', $ext = '', $queuelevel = 0)
+    {
         if (!$creator || !is_string($creator)) {
             throw new YunXinArgExcetption('创建者id不能为空！');
         }
@@ -110,10 +110,12 @@ class ChatRoom extends Base
      * @return mixed
      * @throws YunXinArgExcetption
      * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \YunXinHelper\Exception\YunXinBusinessException
-     * @throws \YunXinHelper\Exception\YunXinNetworkException
+     * @throws \Woshuo\YunXin\Exception\YunXinBusinessException
+     * @throws \Woshuo\YunXin\Exception\YunXinInnerException
+     * @throws \Woshuo\YunXin\Exception\YunXinNetworkException
      */
-    public function get($roomId, $needOnlineUserCount = false) {
+    public function get($roomId, $needOnlineUserCount = false)
+    {
         if (!is_int($roomId)) {
             throw new YunXinArgExcetption('房间id不合法！');
         }
@@ -130,13 +132,15 @@ class ChatRoom extends Base
      * 批量查询聊天室信息
      * @param array $roomIds
      * @param bool $needOnlineUserCount
-     * @return array
+     * @return mixed
      * @throws YunXinArgExcetption
      * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \YunXinHelper\Exception\YunXinBusinessException
-     * @throws \YunXinHelper\Exception\YunXinNetworkException
+     * @throws \Woshuo\YunXin\Exception\YunXinBusinessException
+     * @throws \Woshuo\YunXin\Exception\YunXinInnerException
+     * @throws \Woshuo\YunXin\Exception\YunXinNetworkException
      */
-    public function getBatch(array $roomIds, $needOnlineUserCount = false) {
+    public function getBatch(array $roomIds, $needOnlineUserCount = false)
+    {
         if (empty($roomIds)) {
             throw new YunXinArgExcetption('房间id列表不能为空！');
         }
@@ -151,20 +155,24 @@ class ChatRoom extends Base
 
     /**
      * 创建聊天室
-     * @param $creator
+     * @param $roomId
      * @param $name
      * @param string $announcement
      * @param string $broadcasturl
      * @param string $ext
-     * @param int $queuelevel
-     * @return array
+     * @param bool $needNotify
+     * @param string $notifyExt
+     * @param null $queuelevel
+     * @return mixed
      * @throws YunXinArgExcetption
      * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \YunXinHelper\Exception\YunXinBusinessException
-     * @throws \YunXinHelper\Exception\YunXinNetworkException
+     * @throws \Woshuo\YunXin\Exception\YunXinBusinessException
+     * @throws \Woshuo\YunXin\Exception\YunXinInnerException
+     * @throws \Woshuo\YunXin\Exception\YunXinNetworkException
      */
     public function update($roomId, $name, $announcement = '', $broadcasturl = '', $ext = '', $needNotify = TRUE,
-                           $notifyExt = '', $queuelevel = NULL) {
+                           $notifyExt = '', $queuelevel = NULL)
+    {
         if (!is_int($roomId)) {
             throw new YunXinArgExcetption('房间id不合法！');
         }
@@ -219,15 +227,17 @@ class ChatRoom extends Base
     /**
      * 修改聊天室开/关闭状态
      * @param $roomId
-     * @param string $operator 必须是创建者才可以操作
-     * @param bool $valid
+     * @param $operator
+     * @param $valid
      * @return mixed
      * @throws YunXinArgExcetption
      * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \YunXinHelper\Exception\YunXinBusinessException
-     * @throws \YunXinHelper\Exception\YunXinNetworkException
+     * @throws \Woshuo\YunXin\Exception\YunXinBusinessException
+     * @throws \Woshuo\YunXin\Exception\YunXinInnerException
+     * @throws \Woshuo\YunXin\Exception\YunXinNetworkException
      */
-    public function toggleCloseStatus($roomId, $operator, $valid) {
+    public function toggleCloseStatus($roomId, $operator, $valid)
+    {
         if (!is_int($roomId)) {
             throw new YunXinArgExcetption('房间id不合法！');
         }
@@ -255,10 +265,12 @@ class ChatRoom extends Base
      * @return mixed
      * @throws YunXinArgExcetption
      * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \YunXinHelper\Exception\YunXinBusinessException
-     * @throws \YunXinHelper\Exception\YunXinNetworkException
+     * @throws \Woshuo\YunXin\Exception\YunXinBusinessException
+     * @throws \Woshuo\YunXin\Exception\YunXinInnerException
+     * @throws \Woshuo\YunXin\Exception\YunXinNetworkException
      */
-    public function setMemberRole($roomId, $operator, $target, $opt, $optValue, $notifyExt = '') {
+    public function setMemberRole($roomId, $operator, $target, $opt, $optValue, $notifyExt = '')
+    {
         if (!is_int($roomId)) {
             throw new YunXinArgExcetption('房间id不合法！');
         }
@@ -297,7 +309,8 @@ class ChatRoom extends Base
     }
 
 
-    public function requestAddr($roomId, $accid, $clientType = 1, $clientIP = '') {
+    public function requestAddr($roomId, $accid, $clientType = 1, $clientIP = '')
+    {
         if (!is_int($roomId)) {
             throw new YunXinArgExcetption('房间id不合法！');
         }
@@ -327,9 +340,10 @@ class ChatRoom extends Base
 
 
     private function sendMsg($roomId, $msgId, $fromAccid, $msgType, $resendFlag = NULL,
-                                $attach = '', array $ext, $antispam = FALSE, array $antispamCustom = [],
-                                $skipHistory = 0, $bid = NULL, $highPriority = false,
-                                $useYidun = NULL, $needHighPriorityMsgResend = TRUE) {
+                             $attach = '', array $ext, $antispam = FALSE, array $antispamCustom = [],
+                             $skipHistory = 0, $bid = NULL, $highPriority = false,
+                             $useYidun = NULL, $needHighPriorityMsgResend = TRUE)
+    {
         if (!is_int($roomId)) {
             throw new YunXinArgExcetption('房间id不合法！');
         }
@@ -410,10 +424,11 @@ class ChatRoom extends Base
      * @throws YunXinArgExcetption
      */
     public function sendTextMsg($roomId, $msgId, $fromAccid, $text,
-                                    $resendFlag = NULL,
-                                    array $ext = [], $antispam = FALSE, array $antispamCustom = [],
-                                    $skipHistory = 0, $bid = NULL, $highPriority = false,
-                                    $useYidun = NULL, $needHighPriorityMsgResend = TRUE) {
+                                $resendFlag = NULL,
+                                array $ext = [], $antispam = FALSE, array $antispamCustom = [],
+                                $skipHistory = 0, $bid = NULL, $highPriority = false,
+                                $useYidun = NULL, $needHighPriorityMsgResend = TRUE)
+    {
         if (!$text) {
             throw new YunXinArgExcetption('文本消息内容不能为空！');
         }
@@ -460,11 +475,12 @@ class ChatRoom extends Base
      * @throws YunXinArgExcetption
      */
     public function sendPictureMsg($roomId, $msgId, $fromAccid,
-                                    $picName, $picMD5, $picUrl, $picExt, $picWidth, $picHeight, $picSize,
-                                    $resendFlag = NULL,
-                                    array $ext = [], $antispam = FALSE, array $antispamCustom = [],
-                                    $skipHistory = 0, $bid = NULL, $highPriority = false,
-                                    $useYidun = NULL, $needHighPriorityMsgResend = TRUE) {
+                                   $picName, $picMD5, $picUrl, $picExt, $picWidth, $picHeight, $picSize,
+                                   $resendFlag = NULL,
+                                   array $ext = [], $antispam = FALSE, array $antispamCustom = [],
+                                   $skipHistory = 0, $bid = NULL, $highPriority = false,
+                                   $useYidun = NULL, $needHighPriorityMsgResend = TRUE)
+    {
         $picWidth = intval($picWidth);
         $picHeight = intval($picHeight);
         $picSize = intval($picSize);
@@ -507,19 +523,21 @@ class ChatRoom extends Base
 
 
     /**
-     * @param int $roomId
-     * @param string $operator
-     * @param string $target
-     * @param int $muteDuration
+     * @param $roomId
+     * @param $operator
+     * @param $target
+     * @param $muteDuration
      * @param bool $needNotify
      * @param string $notifyExt
      * @return mixed
      * @throws YunXinArgExcetption
      * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \YunXinHelper\Exception\YunXinBusinessException
-     * @throws \YunXinHelper\Exception\YunXinNetworkException
+     * @throws \Woshuo\YunXin\Exception\YunXinBusinessException
+     * @throws \Woshuo\YunXin\Exception\YunXinInnerException
+     * @throws \Woshuo\YunXin\Exception\YunXinNetworkException
      */
-    public function temporaryMute($roomId, $operator, $target, $muteDuration, $needNotify = TRUE, $notifyExt = '') {
+    public function temporaryMute($roomId, $operator, $target, $muteDuration, $needNotify = TRUE, $notifyExt = '')
+    {
         if (!is_int($roomId)) {
             throw new YunXinArgExcetption('房间id不合法！');
         }
@@ -556,18 +574,20 @@ class ChatRoom extends Base
 
     /**
      * 往聊天室有序队列中新加或更新元素
-     * @param int $roomId
-     * @param string $key
-     * @param string $value
-     * @param string $operator
+     * @param $roomId
+     * @param $key
+     * @param $value
+     * @param $operator
      * @param bool $transient
      * @return mixed
      * @throws YunXinArgExcetption
      * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \YunXinHelper\Exception\YunXinBusinessException
-     * @throws \YunXinHelper\Exception\YunXinNetworkException
+     * @throws \Woshuo\YunXin\Exception\YunXinBusinessException
+     * @throws \Woshuo\YunXin\Exception\YunXinInnerException
+     * @throws \Woshuo\YunXin\Exception\YunXinNetworkException
      */
-    public function queueOffer($roomId, $key, $value, $operator, $transient = FALSE) {
+    public function queueOffer($roomId, $key, $value, $operator, $transient = FALSE)
+    {
         if (!is_int($roomId)) {
             throw new YunXinArgExcetption('房间id不合法！');
         }
@@ -596,15 +616,17 @@ class ChatRoom extends Base
 
     /**
      * 从队列中取出元素
-     * @param int $roomId
+     * @param $roomId
      * @param $key
      * @return mixed
      * @throws YunXinArgExcetption
      * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \YunXinHelper\Exception\YunXinBusinessException
-     * @throws \YunXinHelper\Exception\YunXinNetworkException
+     * @throws \Woshuo\YunXin\Exception\YunXinBusinessException
+     * @throws \Woshuo\YunXin\Exception\YunXinInnerException
+     * @throws \Woshuo\YunXin\Exception\YunXinNetworkException
      */
-    public function queuePoll($roomId, $key) {
+    public function queuePoll($roomId, $key)
+    {
         if (!is_int($roomId)) {
             throw new YunXinArgExcetption('房间id不合法！');
         }
@@ -618,14 +640,16 @@ class ChatRoom extends Base
 
     /**
      * 列出队列中所有元素
-     * @param int $roomId
+     * @param $roomId
      * @return mixed
      * @throws YunXinArgExcetption
      * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \YunXinHelper\Exception\YunXinBusinessException
-     * @throws \YunXinHelper\Exception\YunXinNetworkException
+     * @throws \Woshuo\YunXin\Exception\YunXinBusinessException
+     * @throws \Woshuo\YunXin\Exception\YunXinInnerException
+     * @throws \Woshuo\YunXin\Exception\YunXinNetworkException
      */
-    public function queueList($roomId) {
+    public function queueList($roomId)
+    {
         if (!is_int($roomId)) {
             throw new YunXinArgExcetption('房间id不合法！');
         }
@@ -642,10 +666,12 @@ class ChatRoom extends Base
      * @return mixed
      * @throws YunXinArgExcetption
      * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \YunXinHelper\Exception\YunXinBusinessException
-     * @throws \YunXinHelper\Exception\YunXinNetworkException
+     * @throws \Woshuo\YunXin\Exception\YunXinBusinessException
+     * @throws \Woshuo\YunXin\Exception\YunXinInnerException
+     * @throws \Woshuo\YunXin\Exception\YunXinNetworkException
      */
-    public function queueDrop($roomId) {
+    public function queueDrop($roomId)
+    {
         if (!is_int($roomId)) {
             throw new YunXinArgExcetption('房间id不合法！');
         }
@@ -655,6 +681,7 @@ class ChatRoom extends Base
         return $res['desc'];
     }
 
+
     /**
      * 初始化队列
      * @param $roomId
@@ -662,10 +689,12 @@ class ChatRoom extends Base
      * @return mixed
      * @throws YunXinArgExcetption
      * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \YunXinHelper\Exception\YunXinBusinessException
-     * @throws \YunXinHelper\Exception\YunXinNetworkException
+     * @throws \Woshuo\YunXin\Exception\YunXinBusinessException
+     * @throws \Woshuo\YunXin\Exception\YunXinInnerException
+     * @throws \Woshuo\YunXin\Exception\YunXinNetworkException
      */
-    public function queueInit($roomId, $sizeLimit) {
+    public function queueInit($roomId, $sizeLimit)
+    {
         if (!is_int($roomId)) {
             throw new YunXinArgExcetption('房间id不合法！');
         }
@@ -682,18 +711,20 @@ class ChatRoom extends Base
 
     /**
      * 设置聊天室整体禁言状态（仅创建者和管理员能发言）
-     * @param int $roomId
-     * @param string $operator
-     * @param bool $mute
+     * @param $roomId
+     * @param $operator
+     * @param $mute
      * @param bool $needNotify
-     * @param $notifyExt
+     * @param string $notifyExt
      * @return mixed
      * @throws YunXinArgExcetption
      * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \YunXinHelper\Exception\YunXinBusinessException
-     * @throws \YunXinHelper\Exception\YunXinNetworkException
+     * @throws \Woshuo\YunXin\Exception\YunXinBusinessException
+     * @throws \Woshuo\YunXin\Exception\YunXinInnerException
+     * @throws \Woshuo\YunXin\Exception\YunXinNetworkException
      */
-    public function muteRoom($roomId, $operator, $mute, $needNotify = TRUE, $notifyExt = '') {
+    public function muteRoom($roomId, $operator, $mute, $needNotify = TRUE, $notifyExt = '')
+    {
         if (!is_int($roomId)) {
             throw new YunXinArgExcetption('房间id不合法！');
         }
@@ -723,20 +754,21 @@ class ChatRoom extends Base
         return $res['desc'];
     }
 
-
     /**
      * 分页获取成员列表
-     * @param int $roomId
-     * @param int $type
-     * @param int $endTime
-     * @param int $limit
+     * @param $roomId
+     * @param $type
+     * @param $endTime
+     * @param $limit
      * @return mixed
      * @throws YunXinArgExcetption
      * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \YunXinHelper\Exception\YunXinBusinessException
-     * @throws \YunXinHelper\Exception\YunXinNetworkException
+     * @throws \Woshuo\YunXin\Exception\YunXinBusinessException
+     * @throws \Woshuo\YunXin\Exception\YunXinInnerException
+     * @throws \Woshuo\YunXin\Exception\YunXinNetworkException
      */
-    public function getMembersByPage($roomId, $type, $endTime, $limit) {
+    public function getMembersByPage($roomId, $type, $endTime, $limit)
+    {
         if (!is_int($roomId)) {
             throw new YunXinArgExcetption('房间id不合法！');
         }
@@ -769,15 +801,17 @@ class ChatRoom extends Base
 
     /**
      * 批量获取在线成员信息
-     * @param int $roomId
+     * @param $roomId
      * @param array $accids
      * @return mixed
      * @throws YunXinArgExcetption
      * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \YunXinHelper\Exception\YunXinBusinessException
-     * @throws \YunXinHelper\Exception\YunXinNetworkException
+     * @throws \Woshuo\YunXin\Exception\YunXinBusinessException
+     * @throws \Woshuo\YunXin\Exception\YunXinInnerException
+     * @throws \Woshuo\YunXin\Exception\YunXinNetworkException
      */
-    public function queryOnlineMembers($roomId, array $accids) {
+    public function queryOnlineMembers($roomId, array $accids)
+    {
         if (!is_int($roomId)) {
             throw new YunXinArgExcetption('房间id不合法！');
         }
@@ -795,21 +829,23 @@ class ChatRoom extends Base
 
     /**
      * 变更聊天室内的角色信息
-     * @param int $roomId
-     * @param string $accid
+     * @param $roomId
+     * @param $accid
      * @param bool $save
      * @param bool $needNotify
      * @param string $notifyExt
      * @param string $nick
      * @param string $avator
      * @param string $ext
-     * @return array
+     * @return mixed
      * @throws YunXinArgExcetption
      * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \YunXinHelper\Exception\YunXinBusinessException
-     * @throws \YunXinHelper\Exception\YunXinNetworkException
+     * @throws \Woshuo\YunXin\Exception\YunXinBusinessException
+     * @throws \Woshuo\YunXin\Exception\YunXinInnerException
+     * @throws \Woshuo\YunXin\Exception\YunXinNetworkException
      */
-    public function updateMyRoomRole($roomId, $accid, $save = false, $needNotify = TRUE, $notifyExt = '', $nick = '', $avator = '', $ext= '') {
+    public function updateMyRoomRole($roomId, $accid, $save = false, $needNotify = TRUE, $notifyExt = '', $nick = '', $avator = '', $ext = '')
+    {
         if (!is_int($roomId)) {
             throw new YunXinArgExcetption('房间id不合法！');
         }
@@ -846,7 +882,8 @@ class ChatRoom extends Base
     }
 
 
-    public function queueBatchUpdateElements($roomId, $operator, array $elements, $needNotify = TRUE, $notifyExt = '') {
+    public function queueBatchUpdateElements($roomId, $operator, array $elements, $needNotify = TRUE, $notifyExt = '')
+    {
         if (!is_int($roomId)) {
             throw new YunXinArgExcetption('房间id不合法！');
         }

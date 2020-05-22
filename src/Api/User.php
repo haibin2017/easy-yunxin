@@ -8,7 +8,7 @@
 namespace Woshuo\YunXin\Api;
 
 
-use YunXinHelper\Exception\YunXinArgExcetption;
+use Woshuo\YunXin\Exception\YunXinArgExcetption;
 
 class User extends Base
 {
@@ -51,7 +51,8 @@ class User extends Base
      * @throws YunXinArgExcetption
      */
     private function verifyUserInfo($accid, $name, array $props = [], $icon, $token, $sign,
-                                     $email, $birth, $mobile, $gender, $ex) {
+                                    $email, $birth, $mobile, $gender, $ex)
+    {
         $gender = intval($gender);
         $propsStr = json_encode($props);
 
@@ -102,16 +103,18 @@ class User extends Base
      * @param string $email
      * @param string $birth
      * @param string $mobile
-     * @param int $gender 用户性别，0表示未知，1表示男，2女表示女
+     * @param int $gender
      * @param string $ex
      * @return mixed
      * @throws YunXinArgExcetption
      * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \YunXinHelper\Exception\YunXinBusinessException
-     * @throws \YunXinHelper\Exception\YunXinNetworkException
+     * @throws \Woshuo\YunXin\Exception\YunXinBusinessException
+     * @throws \Woshuo\YunXin\Exception\YunXinInnerException
+     * @throws \Woshuo\YunXin\Exception\YunXinNetworkException
      */
     public function create($accid, $name, array $props = [], $icon = '', $token = '', $sign = '', $email = '', $birth = '',
-                            $mobile = '', $gender = 0, $ex = '') {
+                           $mobile = '', $gender = 0, $ex = '')
+    {
         $this->verifyUserInfo($accid, $name, $props, $icon, $token, $sign,
             $email, $birth, $mobile, $gender, $ex);
 
@@ -133,16 +136,18 @@ class User extends Base
 
     /**
      * 网易云通信ID基本信息更新
-     * @param string $accid
+     * @param $accid
      * @param array $props
      * @param string $token
-     * @return array
+     * @return mixed
      * @throws YunXinArgExcetption
      * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \YunXinHelper\Exception\YunXinBusinessException
-     * @throws \YunXinHelper\Exception\YunXinNetworkException
+     * @throws \Woshuo\YunXin\Exception\YunXinBusinessException
+     * @throws \Woshuo\YunXin\Exception\YunXinInnerException
+     * @throws \Woshuo\YunXin\Exception\YunXinNetworkException
      */
-    public function update($accid, array $props = [], $token = '') {
+    public function update($accid, array $props = [], $token = '')
+    {
         $this->verifyUserInfo($accid, '', $props, '', $token, '',
             '', '', '', 0, '');
 
@@ -156,14 +161,16 @@ class User extends Base
 
     /**
      * 更新并获取新token
-     * @param string $accid
+     * @param $accid
      * @return mixed
      * @throws YunXinArgExcetption
      * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \YunXinHelper\Exception\YunXinBusinessException
-     * @throws \YunXinHelper\Exception\YunXinNetworkException
+     * @throws \Woshuo\YunXin\Exception\YunXinBusinessException
+     * @throws \Woshuo\YunXin\Exception\YunXinInnerException
+     * @throws \Woshuo\YunXin\Exception\YunXinNetworkException
      */
-    public function refreshToken($accid) {
+    public function refreshToken($accid)
+    {
         $this->verifyUserInfo($accid, '', [], '', '', '',
             '', '', '', 0, '');
 
@@ -175,15 +182,17 @@ class User extends Base
 
     /**
      * 封禁网易云通信ID
-     * @param string $accid
+     * @param $accid
      * @param bool $kick
-     * @return array
+     * @return mixed
      * @throws YunXinArgExcetption
      * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \YunXinHelper\Exception\YunXinBusinessException
-     * @throws \YunXinHelper\Exception\YunXinNetworkException
+     * @throws \Woshuo\YunXin\Exception\YunXinBusinessException
+     * @throws \Woshuo\YunXin\Exception\YunXinInnerException
+     * @throws \Woshuo\YunXin\Exception\YunXinNetworkException
      */
-    public function block($accid, $kick = false) {
+    public function block($accid, $kick = false)
+    {
         $this->verifyUserInfo($accid, '', [], '', '', '',
             '', '', '', 0, '');
 
@@ -197,13 +206,15 @@ class User extends Base
     /**
      * 解禁网易云通信ID
      * @param $accid
-     * @return array
+     * @return mixed
      * @throws YunXinArgExcetption
      * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \YunXinHelper\Exception\YunXinBusinessException
-     * @throws \YunXinHelper\Exception\YunXinNetworkException
+     * @throws \Woshuo\YunXin\Exception\YunXinBusinessException
+     * @throws \Woshuo\YunXin\Exception\YunXinInnerException
+     * @throws \Woshuo\YunXin\Exception\YunXinNetworkException
      */
-    public function unblock($accid) {
+    public function unblock($accid)
+    {
         $this->verifyUserInfo($accid, '', [], '', '', '',
             '', '', '', 0, '');
 
@@ -216,22 +227,24 @@ class User extends Base
     /**
      * 更新用户名片
      * @param $accid
-     * @param $name
-     * @param $icon
-     * @param $sign
-     * @param $email
-     * @param $birth
-     * @param $mobile
-     * @param $gender
-     * @param $ex
-     * @return array
+     * @param string $name
+     * @param string $icon
+     * @param string $sign
+     * @param string $email
+     * @param string $birth
+     * @param string $mobile
+     * @param string $gender
+     * @param string $ex
+     * @return mixed
      * @throws YunXinArgExcetption
      * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \YunXinHelper\Exception\YunXinBusinessException
-     * @throws \YunXinHelper\Exception\YunXinNetworkException
+     * @throws \Woshuo\YunXin\Exception\YunXinBusinessException
+     * @throws \Woshuo\YunXin\Exception\YunXinInnerException
+     * @throws \Woshuo\YunXin\Exception\YunXinNetworkException
      */
     public function updateUserInfo($accid, $name = '', $icon = '', $sign = '', $email = '',
-                                   $birth = '', $mobile = '', $gender = '', $ex = '') {
+                                   $birth = '', $mobile = '', $gender = '', $ex = '')
+    {
         $this->verifyUserInfo($accid, $name, [], $icon, '', $sign,
             $email, $birth, $mobile, $gender, $ex);
 
@@ -255,10 +268,12 @@ class User extends Base
      * @return mixed
      * @throws YunXinArgExcetption
      * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \YunXinHelper\Exception\YunXinBusinessException
-     * @throws \YunXinHelper\Exception\YunXinNetworkException
+     * @throws \Woshuo\YunXin\Exception\YunXinBusinessException
+     * @throws \Woshuo\YunXin\Exception\YunXinInnerException
+     * @throws \Woshuo\YunXin\Exception\YunXinNetworkException
      */
-    public function getUserInfos(array $accids) {
+    public function getUserInfos(array $accids)
+    {
         if (empty($accids)) {
             throw new YunXinArgExcetption('查询用户不能为空！');
         }
@@ -269,5 +284,33 @@ class User extends Base
             'accids' => json_encode($accids)
         ]);
         return $res['uinfos'];
+    }
+
+    /**
+     * /**
+     * 设置桌面端在线时，移动端是否需要推送，客户端登录后才可以设置
+     * @param $account 云信账号
+     * @param $donnopOpen 桌面端在线时，移动端是否不推送：
+     * true:移动端不需要推送，false:移动端需要推送
+     * @return mixed
+     * @throws YunXinArgExcetption
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Woshuo\YunXin\Exception\YunXinBusinessException
+     * @throws \Woshuo\YunXin\Exception\YunXinInnerException
+     * @throws \Woshuo\YunXin\Exception\YunXinNetworkException
+     */
+    public function setDonnop($account, $donnopOpen)
+    {
+        if (empty($account)) {
+            throw new YunXinArgExcetption('用户账号不能为空！');
+        }
+        if (!isset($donnopOpen)) {
+            throw new YunXinArgExcetption('是否推送状态参数不能为空！');
+        }
+        $res = $this->sendRequest('user/setDonnop.action', [
+            'accid' => $account,
+            'donnopOpen' => $donnopOpen
+        ]);
+        return $res;
     }
 }
