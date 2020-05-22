@@ -365,4 +365,63 @@ class User extends Base
         ]);
         return $res;
     }
+
+    /**
+     * 设置黑名单/静音
+     * 拉黑/取消拉黑；设置静音/取消静音
+     * @param $account
+     * @param $targetAcc 被加黑或加静音的帐号
+     * @param $relationType 本次操作的关系类型,1:黑名单操作，2:静音列表操作
+     * @param $value 操作值，0:取消黑名单或静音，1:加入黑名单或静音
+     * @return mixed
+     * @throws YunXinArgExcetption
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Woshuo\YunXin\Exception\YunXinBusinessException
+     * @throws \Woshuo\YunXin\Exception\YunXinInnerException
+     * @throws \Woshuo\YunXin\Exception\YunXinNetworkException
+     */
+    public function setSpecialRelation($account, $targetAcc, $relationType, $value)
+    {
+        if (empty($account)) {
+            throw new YunXinArgExcetption('用户账号不能为空！');
+        }
+        if (empty($targetAcc)) {
+            throw new YunXinArgExcetption('被加黑或加静音的帐号不能为空！');
+        }
+
+        $res = $this->sendRequest('user/setSpecialRelation.action', [
+            'accid' => $account,
+            'targetAcc' => $targetAcc,
+            'relationType' => $relationType,
+            'value' => $value
+        ]);
+        return $res;
+    }
+
+    /**
+     * 查看指定用户的黑名单和静音列表
+     * 查看用户的黑名单和静音列表
+     * @param $account
+     * @return array
+     * @throws YunXinArgExcetption
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Woshuo\YunXin\Exception\YunXinBusinessException
+     * @throws \Woshuo\YunXin\Exception\YunXinInnerException
+     * @throws \Woshuo\YunXin\Exception\YunXinNetworkException
+     */
+    public function listBlackAndMuteList($account)
+    {
+        if (empty($account)) {
+            throw new YunXinArgExcetption('用户账号不能为空！');
+        }
+        $res = $this->sendRequest('user/listBlackAndMuteList.action', [
+            'accid' => $account
+        ]);
+        return [
+            // 被静音的账号列表
+            'mutelist' => $res['mutelist'],
+            // 加黑的账号列表
+            'blacklist' => $res['blacklist']
+        ];
+    }
 }
