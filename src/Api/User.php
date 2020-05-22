@@ -289,8 +289,7 @@ class User extends Base
     /**
      * 设置桌面端在线时，移动端是否需要推送，客户端登录后才可以设置
      * @param $account 云信账号
-     * @param $donnopOpen 桌面端在线时，移动端是否不推送：
-     * true:移动端不需要推送，false:移动端需要推送
+     * @param $donnopOpen 桌面端在线时，移动端是否不推送： true:移动端不需要推送，false:移动端需要推送
      * @return mixed
      * @throws YunXinArgExcetption
      * @throws \GuzzleHttp\Exception\GuzzleException
@@ -309,6 +308,60 @@ class User extends Base
         $res = $this->sendRequest('user/setDonnop.action', [
             'accid' => $account,
             'donnopOpen' => $donnopOpen
+        ]);
+        return $res;
+    }
+
+    /**
+     * 设置或取消账号的全局禁言状态；
+     * 账号被设置为全局禁言后，不能发送“点对点”、“群”、“聊天室”消息
+     * @param $account 云信账号
+     * @param $mute 是否全局禁言： true：全局禁言，false:取消全局禁言
+     * @return mixed
+     * @throws YunXinArgExcetption
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Woshuo\YunXin\Exception\YunXinBusinessException
+     * @throws \Woshuo\YunXin\Exception\YunXinInnerException
+     * @throws \Woshuo\YunXin\Exception\YunXinNetworkException
+     */
+    public function mute($account, $mute)
+    {
+        if (empty($account)) {
+            throw new YunXinArgExcetption('用户账号不能为空！');
+        }
+        if (!isset($mute)) {
+            throw new YunXinArgExcetption('是否全局禁言状态参数不能为空！');
+        }
+        $res = $this->sendRequest('user/mute.action', [
+            'accid' => $account,
+            'mute' => $mute
+        ]);
+        return $res;
+    }
+
+    /**
+     * 设置或取消账号是否可以发起音视频功能；
+     * 账号被设置为禁用音视频后，不能发起点对点音视频、创建多人音视频、发起点对点白板、创建多人白板
+     * @param $account 云信账号
+     * @param $mute 是否全局禁言： true：全局禁用，false:取消全局禁用
+     * @return mixed
+     * @throws YunXinArgExcetption
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Woshuo\YunXin\Exception\YunXinBusinessException
+     * @throws \Woshuo\YunXin\Exception\YunXinInnerException
+     * @throws \Woshuo\YunXin\Exception\YunXinNetworkException
+     */
+    public function muteAv($account, $mute)
+    {
+        if (empty($account)) {
+            throw new YunXinArgExcetption('用户账号不能为空！');
+        }
+        if (!isset($mute)) {
+            throw new YunXinArgExcetption('是否全局禁用音视频状态参数不能为空！');
+        }
+        $res = $this->sendRequest('user/muteAv.action', [
+            'accid' => $account,
+            'mute' => $mute
         ]);
         return $res;
     }
