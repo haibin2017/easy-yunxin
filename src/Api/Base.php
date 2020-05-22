@@ -220,4 +220,31 @@ class Base
     {
         return $var ? 'true' : 'false';
     }
+
+    public function notify(\Closure $closure)
+    {
+        $md5 = $_SERVER['HTTP_MD5'];
+        $currentTime = $_SERVER['HTTP_CURTIME'];
+        $checkSum = $_SERVER['HTTP_CHECKSUM'];
+        $result = $this->checkSum($md5, $currentTime, $checkSum);
+        if ($result) {
+            $bodyData = @file_get_contents('php://input');
+            //将获取到的值转化为数组格式
+            \call_user_func($closure, $bodyData, true);
+            return;
+        }
+        //将获取到的值转化为数组格式
+        \call_user_func($closure, null, false);
+    }
+
+    // 校验回调数据
+    protected function checkSum($md5, $currentTime, $checkSum)
+    {
+        $checkSumStr = sha1($this->appSecrt . $md5 . $currentTime);
+        if ($checkSum === $checkSumStr) {
+            // 校验通过
+            return true;
+        }
+        return false;
+    }
 }
