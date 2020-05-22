@@ -31,7 +31,7 @@ class Friend extends Base
             'type' => $type,
             'msg' => $msg
         ]);
-        return $res['info'];
+        return $res;
     }
 
     /**
@@ -55,7 +55,7 @@ class Friend extends Base
             'alias' => $alias,
             'ex' => $ex
         ]);
-        return $res['info'];
+        return $res;
     }
 
     /**
@@ -76,7 +76,7 @@ class Friend extends Base
             'faccid' => $friendAccount,
             'isDeleteAlias' => $isDeleteAlias
         ]);
-        return $res['info'];
+        return $res;
     }
 
     /**
@@ -96,6 +96,6 @@ class Friend extends Base
             'accid' => $account,
             'updatetime' => $updateTime
         ]);
-        return $res['info'];
+        return $res['friends'];
     }
 }
