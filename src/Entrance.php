@@ -5,6 +5,7 @@ namespace Woshuo\YunXin;
 use Woshuo\YunXin\Api\Chat;
 use Woshuo\YunXin\Api\ChatRoom;
 use Woshuo\YunXin\Api\User;
+use Woshuo\YunXin\Api\Friend;
 
 /**
  * 入口类
