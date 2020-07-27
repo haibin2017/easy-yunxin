@@ -1299,6 +1299,27 @@ class Chat extends Base
     }
 
     /**
+     * 删除会话漫游消息
+     * @param int $type 1 p2p会话 2 群会话
+     * @param $from 发送者账号
+     * @param $to 对方账号
+     * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Woshuo\YunXin\Exception\YunXinBusinessException
+     * @throws \Woshuo\YunXin\Exception\YunXinInnerException
+     * @throws \Woshuo\YunXin\Exception\YunXinNetworkException
+     */
+    public function delRoamSession($type = 1, $from, $to)
+    {
+        $res = $this->sendRequest('msg/delRoamSession.action', [
+            'type' => $type,
+            'from' => $from,
+            'to' => $to,
+        ]);
+        return $res;
+    }
+
+    /**
      * 发送广播消息
      * @param $body
      * @param $from
